@@ -1,4 +1,4 @@
-<h1>Collect GitHub Statistics for Viewer</h1>
+<h1>Collect GitHub Statistics for a Viewer (viewing user)</h1>
 
 <h2>Install</h2>
 
