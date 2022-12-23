@@ -27,6 +27,24 @@ npm install --save github-viewer-stats@0.1.0
   </p>
 </details>
 
+<details>
+  <summary>Detailed example</summary>
+  <p>
+
+  ```javascript
+  const ghViewerStats = require('github-viewer-stats');
+
+  async function main() {
+    let stats = await ghViewerStats();
+    console.log(JSON.stringify(stats, null, 2));
+  }
+
+  main();
+  ```
+
+  </p>
+</details>
+
 ```javascript
 require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
 ```
@@ -34,7 +52,7 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
 </p>
 
 <p>
-<b>Print result</b> <em>using my own token.</em>
+<em>Printed result for my own token:</em>
 
 ```json
 {
@@ -57,21 +75,3 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
 ```
 
 </p>
-
-<details>
-  <summary>Detailed example</summary>
-  <p>
-
-  ```javascript
-  const ghViewerStats = require('github-viewer-stats');
-
-  async function main() {
-    let stats = await ghViewerStats();
-    console.log(JSON.stringify(stats, null, 2));
-  }
-
-  main();
-  ```
-
-  </p>
-</details>
