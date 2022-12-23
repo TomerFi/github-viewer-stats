@@ -23,7 +23,6 @@ npm install --save github-viewer-stats@0.1.0
     <li>read:packages</li>
     <li>read:user</li>
     <li>read:discussion</li>
-    <li>read:project</li>
   </ul>
   </p>
 </details>
