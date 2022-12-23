@@ -1,0 +1,94 @@
+---
+name: Release
+
+on:
+  workflow_dispatch:
+    title:
+      description: "Release title (blank for tag)"
+      required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    name: Release package
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3.2.0
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Install node 16
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: "16"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Configure git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Determine next SemVer
+        id: bumper
+        uses: tomerfi/version-bumper-action@1.2.1
+
+      - name: Update package with new version
+        run: npm version ${{ steps.bumper.outputs.new_version }} --no-git-tag-version
+
+      - name: Install project modules
+        run: npm ci --production
+
+      - name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
+
+      - name: Commit and push package modifications
+        run: |
+          git add package.json
+          git add package-lock.json
+          git commit -m "build: updated package with ${{ steps.bumper.outputs.new_version }} [skip ci]"
+          git push
+
+      - name: Create and push new tag
+        run: |
+          git tag ${{ steps.bumper.outputs.new_version }} -m "Function v${{ steps.publish_lambda.outputs.function_version }}"
+          git push origin ${{ steps.bumper.outputs.new_version }}
+
+      - name: Create a release name
+        id: release_name
+        uses: actions/github-script@v6.3.3
+        with:
+          script: |
+            var retval = '${{ steps.bumper.outputs.new_version }}'
+            if ('${{ github.event.inputs.title }}') {
+              retval = retval.concat(' - ${{ github.event.inputs.title }}')
+            }
+            core.setOutput('value', retval)
+
+      - name: Create a release
+        id: gh_release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.RELEASE_PAT }}
+          script: |
+            const repo_name = context.payload.repository.full_name
+            const response = await github.request('POST /repos/' + repo_name + '/releases', {
+              tag_name: '${{ steps.bumper.outputs.new_version }}',
+              name: '${{ steps.release_name.outputs.value }}',
+              generate_release_notes: true
+            })
+            core.setOutput('html_url', response.data.html_url)
+
+      - name: Update documentation with new version
+        run: |
+          sed -i 's/github-viewer-stats@.*/github-viewer-stats@"${{ steps.bumper.outputs.new_version }}"/g' README.md
+
+      - name: Commit and push docs modifications
+        run: |
+          git add README.md
+          git commit -m "docs: updated docs with ${{ steps.bumper.outputs.new_version }} [skip ci]"
+          git push

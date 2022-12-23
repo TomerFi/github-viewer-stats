@@ -1,0 +1,37 @@
+{
+  "name": "github-viewer-stats",
+  "version": "0.1.0",
+  "description": "Utility for collecting viewer (viewing user) GitHub statistics",
+  "homepage": "https://github.com/TomerFi/github-viewer-stats#readme",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Tomer Figenblat",
+    "url": "https://github.com/TomerFi"
+  },
+  "repository": "github:TomerFi/github-viewer-stats",
+  "bugs": "https://github.com/TomerFi/github-viewer-stats/issues",
+  "keywords": [
+    "github",
+    "contributions",
+    "statistics"
+  ],
+  "main": "src/get-stats.js",
+  "files": [
+    "!*"
+  ],
+  "engines": {
+    "node": ">= 16.0.0",
+    "npm": ">= 8.0.0"
+  },
+  "scripts": {
+    "lint": "eslint src --ext js",
+    "print": "node -e 'async function run() { console.log(JSON.stringify(await require(\"./src/get-stats\")(), null, 2)) } run()'"
+  },
+  "dependencies": {
+    "@octokit/graphql": "^5.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-plugin-editorconfig": "^4.0.2"
+  }
+}

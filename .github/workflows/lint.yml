@@ -1,0 +1,31 @@
+---
+name: Lint
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint project
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3.2.0
+
+      - name: Install node 16
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: "16"
+          cache: npm
+
+      - name: Install project modules
+        run: npm ci
+
+      - name: Lint source files
+        run: npm run lint
