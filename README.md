@@ -13,31 +13,7 @@ npm install --save github-viewer-stats@0.1.0
 <h2>Usage Example</h2>
 
 <p>
-<em>Set the <stronger>GITHUB_TOKEN</stronger> environnement variable with your token.</em>
-
-```javascript
-require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
-```
-
-</p>
-
-<details>
-  <summary>Clearer example</summary>
-  <p>
-
-  ```javascript
-  const ghViewerStats = require('github-viewer-stats');
-
-  async function main() {
-    let stats = await ghViewerStats();
-    console.log(JSON.stringify(stats, null, 2));
-  }
-
-  main();
-  ```
-
-  </p>
-</details>
+<b>GITHUB_TOKEN</b> <em>environnement variable is required.</em>
 
 <details>
   <summary>Token scopes</summary>
@@ -52,7 +28,14 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
   </p>
 </details>
 
-<h3>Print Result</h3>
+```javascript
+require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
+```
+
+</p>
+
+<p>
+<b>Print result</b> <em>using my own token.</em>
 
 ```json
 {
@@ -73,3 +56,23 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
   }
 }
 ```
+
+</p>
+
+<details>
+  <summary>Detailed example</summary>
+  <p>
+
+  ```javascript
+  const ghViewerStats = require('github-viewer-stats');
+
+  async function main() {
+    let stats = await ghViewerStats();
+    console.log(JSON.stringify(stats, null, 2));
+  }
+
+  main();
+  ```
+
+  </p>
+</details>
