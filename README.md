@@ -39,7 +39,18 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
   </p>
 </details>
 
-<br/>
+<details>
+  <summary>Token scopes</summary>
+  <p>
+  <ul>
+    <li>repo</li>
+    <li>read:packages</li>
+    <li>read:user</li>
+    <li>read:discussion</li>
+    <li>read:project</li>
+  </ul>
+  </p>
+</details>
 
 <h3>Print Result</h3>
 
