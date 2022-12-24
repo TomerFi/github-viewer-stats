@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Utility for collecting viewer (viewing user) GitHub statistics",
   "homepage": "https://github.com/TomerFi/github-viewer-stats#readme",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "ISC",
   "author": {
     "name": "Tomer Figenblat",
     "url": "https://github.com/TomerFi"
