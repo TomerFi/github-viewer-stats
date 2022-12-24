@@ -1,0 +1,67 @@
+---
+name: Test Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      update_readme:
+        description: "Update README?"
+        default: "yes"
+        required: false
+  push:
+    branches:
+      - main
+
+jobs:
+  test_run:
+    runs-on: ubuntu-latest
+    environment: test-run
+    name: Test run
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3.2.0
+
+      - name: Install node 16
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: "16"
+          cache: npm
+
+      - name: Install project modules
+        run: npm ci
+
+      - name: Grab my statistics
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST_RUN_TOKEN }}
+        run: >
+          printf "\n\`\`\`json\n" > my_stats
+          && node ./src/main.js >> my_stats
+          && printf "\`\`\`\n\n" >> my_stats
+
+  update_readme:
+    runs-on: ubuntu-latest
+    environment: update-docs
+    name: Update README
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.update_readme == 'yes'
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3.2.0
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Configure git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Update README
+        run: |
+          sed -i -ne '/<!--START OF STATS-->/ {p; r my_stats' -e ':a; n; /<!--END OF STATS-->/ {p; b}; ba}; p' README.md
+
+      - name: Commit and push README
+        run: |
+          git add README.md
+          git commit -m "docs: updated README with new stats [skip ci]"
+          git push

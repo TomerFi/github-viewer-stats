@@ -25,6 +25,8 @@ npx github-viewer-stats
 <p>
 <em>Prints for my own token</em>
 
+<!--START OF STATS-->
+
 ```json
 {
   "name": "Tomer Figenblat",
@@ -44,6 +46,8 @@ npx github-viewer-stats
   }
 }
 ```
+
+<!--END OF STATS-->
 
 </p>
 
