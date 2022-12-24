@@ -15,6 +15,7 @@
     "contributions",
     "statistics"
   ],
+  "bin": "src/main.js",
   "main": "src/get-stats.js",
   "files": [
     "!*"
