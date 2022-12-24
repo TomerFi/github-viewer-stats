@@ -1,23 +1,17 @@
 <h1>Collect GitHub Statistics for a Viewer (viewing user)</h1>
 
-<h2>Install</h2>
-
 <p>
+
+<em>Run as a script</em>
 
 ```shell
-npm install --save github-viewer-stats@0.1.0
+npx github-viewer-stats
 ```
 
-</p>
-
-<h2>Usage Example</h2>
-
-<p>
-<b>GITHUB_TOKEN</b> <em>environnement variable is required.</em>
-
 <details>
-  <summary>Token scopes</summary>
+  <summary><b>GITHUB_TOKEN</b> environnement variable is required</summary>
   <p>
+  <em>Token scopes</em>
   <ul>
     <li>repo</li>
     <li>read:packages</li>
@@ -27,32 +21,10 @@ npm install --save github-viewer-stats@0.1.0
   </p>
 </details>
 
-<details>
-  <summary>Detailed example</summary>
-  <p>
-
-  ```javascript
-  const ghViewerStats = require('github-viewer-stats');
-
-  async function main() {
-    let stats = await ghViewerStats();
-    console.log(JSON.stringify(stats, null, 2));
-  }
-
-  main();
-  ```
-
-  </p>
-</details>
-
-```javascript
-require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
-```
-
 </p>
 
 <p>
-<em>Printed result for my own token:</em>
+<em>Prints for my own token</em>
 
 ```json
 {
@@ -75,3 +47,38 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
 ```
 
 </p>
+
+<details>
+<summary>Use as a module</summary>
+
+<p>
+
+```shell
+npm install --save github-viewer-stats
+```
+
+</p>
+
+```javascript
+require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
+```
+
+<details>
+  <summary>Detailed example</summary>
+  <p>
+
+  ```javascript
+  const ghViewerStats = require('github-viewer-stats');
+
+  async function main() {
+    let stats = await ghViewerStats();
+    console.log(JSON.stringify(stats, null, 2));
+  }
+
+  main();
+  ```
+
+  </p>
+</details>
+
+</details>
