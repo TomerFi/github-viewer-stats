@@ -9,9 +9,8 @@ npx github-viewer-stats
 ```
 
 <details>
-  <summary><b>GITHUB_TOKEN</b> environnement variable is required</summary>
+  <summary>requires <em>GITHUB_TOKEN</em> environnement variable (click for scopes)</summary>
   <p>
-  <em>Token scopes</em>
   <ul>
     <li>repo</li>
     <li>read:packages</li>
