@@ -42,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: update-docs
     name: Update README
+    needs: test_run
     if: >-
       github.event_name == 'workflow_dispatch' &&
       github.event.inputs.update_readme == 'yes'
