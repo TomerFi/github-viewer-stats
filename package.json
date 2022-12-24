@@ -1,6 +1,6 @@
 {
   "name": "github-viewer-stats",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Utility for collecting viewer (viewing user) GitHub statistics",
   "homepage": "https://github.com/TomerFi/github-viewer-stats#readme",
   "license": "SEE LICENSE IN LICENSE",
