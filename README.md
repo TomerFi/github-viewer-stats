@@ -26,27 +26,6 @@ npx github-viewer-stats
 <em>Prints for my own token</em>
 
 <!--START OF STATS-->
-
-```json
-{
-  "name": "Tomer Figenblat",
-  "contributionsCollection": {
-    "contributionCalendar": {
-      "totalContributions": 10133
-    },
-    "totalCommitContributions": 7485,
-    "totalIssueContributions": 109,
-    "totalPullRequestContributions": 371,
-    "totalPullRequestReviewContributions": 644,
-    "totalRepositoriesWithContributedCommits": 202,
-    "totalRepositoriesWithContributedIssues": 51,
-    "totalRepositoriesWithContributedPullRequestReviews": 38,
-    "totalRepositoriesWithContributedPullRequests": 97,
-    "totalRepositoryContributions": 131
-  }
-}
-```
-
 <!--END OF STATS-->
 
 </p>
