@@ -75,7 +75,7 @@ jobs:
         run: |
           sed -i -ne '/<!--START OF STATS-->/ {p; r my_stats' -e ':a; n; /<!--END OF STATS-->/ {p; b}; ba}; p' README.md
 
-      - name: Count changed
+      - name: Check for README diff
         id: got_diff
         continue-on-error: true # exits non zero if diff found
         run: git diff -s --exit-code README.me
