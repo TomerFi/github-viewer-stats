@@ -1,4 +1,4 @@
-<h1>Collect GitHub Statistics for a Viewer (viewing user)</h1>
+<h1>Collect Your Own GitHub Statistics</h1>
 
 <p>
 
@@ -8,22 +8,10 @@
 npx github-viewer-stats
 ```
 
-<details>
-  <summary>requires <em>GITHUB_TOKEN</em> environnement variable (click for scopes)</summary>
-  <p>
-  <ul>
-    <li>repo</li>
-    <li>read:packages</li>
-    <li>read:user</li>
-    <li>read:discussion</li>
-  </ul>
-  </p>
-</details>
-
 </p>
 
 <p>
-<em>Prints for my own token</em>
+<em>Running with my own token</em>
 
 <!--START OF STATS-->
 
@@ -50,6 +38,18 @@ npx github-viewer-stats
 <!--END OF STATS-->
 
 </p>
+
+<details>
+  <summary>Requires a <em>GITHUB_TOKEN</em> environnement variable (click for the scopes)</summary>
+  <p>
+  <ul>
+    <li>repo</li>
+    <li>read:packages</li>
+    <li>read:user</li>
+    <li>read:discussion</li>
+  </ul>
+  </p>
+</details>
 
 <details>
 <summary>Use as a module</summary>
