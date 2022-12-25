@@ -30,13 +30,21 @@ jobs:
       - name: Install project modules
         run: npm ci
 
-      - name: Grab my statistics
+      - name: Grab my user stats
         env:
           GITHUB_TOKEN: ${{ secrets.TEST_RUN_TOKEN }}
         run: >
           printf "\n\`\`\`json\n" > my_stats
-          && node ./src/main.js >> my_stats
+          && node ./src/cli.js contribs >> my_stats
           && printf "\`\`\`\n\n" >> my_stats
+
+      - name: Grab my repo stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST_RUN_TOKEN }}
+        run: >
+          printf "\n\`\`\`json\n" > my_repo
+          && node ./src/cli.js repo aioswitcher >> my_repo
+          && printf "\`\`\`\n\n" >> my_repo
 
       - name: Upload statistics artifact
         uses: actions/upload-artifact@v3.1.1
@@ -45,7 +53,9 @@ jobs:
           github.event.inputs.update_readme == 'yes'
         with:
           name: stats-artifact
-          path: ./my_stats
+          path: |
+            ./my_stats
+            ./my_repo
 
   update_readme:
     runs-on: ubuntu-latest
@@ -71,9 +81,13 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
-      - name: Update README
+      - name: Update user block
         run: |
           sed -i -ne '/<!--START OF STATS-->/ {p; r my_stats' -e ':a; n; /<!--END OF STATS-->/ {p; b}; ba}; p' README.md
+
+      - name: Update repo block
+        run: |
+          sed -i -ne '/<!--START OF REPO-->/ {p; r my_repo' -e ':a; n; /<!--END OF REPO-->/ {p; b}; ba}; p' README.md
 
       - name: Check for README diff
         id: got_diff

@@ -2,16 +2,15 @@
 
 <p>
 
-<em>Run as a script</em>
+<em>Run as a script (using my own token)</em>
 
 ```shell
-npx github-viewer-stats
+npx github-viewer-stats contribs
 ```
 
 </p>
 
 <p>
-<em>Running with my own token</em>
 
 <!--START OF STATS-->
 
@@ -40,6 +39,28 @@ npx github-viewer-stats
 
 <!--END OF STATS-->
 
+```shell
+npx github-viewer-stats repo aioswitcher
+```
+
+<!--START OF REPO-->
+
+```json
+{
+  "name": "aioswitcher",
+  "description": "PyPi module integrating with various Switcher devices",
+  "language": "Python",
+  "license": "apache-2.0",
+  "collaborators": 2,
+  "forks": 9,
+  "stars": 14,
+  "watchers": 2,
+  "latest": "3.2.1"
+}
+```
+
+<!--END OF REPO-->
+
 </p>
 
 <details>
@@ -66,7 +87,10 @@ npm install --save github-viewer-stats
 </p>
 
 ```javascript
-require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2)));
+// print my user statistics to the console
+require('github-viewer-stats').contribs().then(r => console.log(JSON.stringify(r, null, 2)));
+// print my aioswitcher repository statistics to the console
+require('github-viewer-stats').repo('aioswitcher').then(r => console.log(JSON.stringify(r, null, 2)));
 ```
 
 <details>
@@ -74,11 +98,16 @@ require('github-viewer-stats')().then(r => console.log(JSON.stringify(r, null, 2
   <p>
 
   ```javascript
-  const ghViewerStats = require('github-viewer-stats');
+  const { contribs, repo } = require('github-viewer-stats');
 
   async function main() {
-    let stats = await ghViewerStats();
-    console.log(JSON.stringify(stats, null, 2));
+    // collect user my statistics
+    let myContributions = await contribs();
+    console.log(JSON.stringify(myContributions, null, 2));
+
+    // collect my aioswitcher repository statistics
+    let myRepo = await repo('aioswitcher');
+    console.log(JSON.stringify(myRepo, null, 2));
   }
 
   main();

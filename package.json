@@ -15,10 +15,12 @@
     "contributions",
     "statistics"
   ],
-  "bin": "src/main.js",
-  "main": "src/get-stats.js",
+  "bin": "src/cli.js",
+  "main": "src/index.js",
   "files": [
-    "!*"
+    "!*",
+    "src/contribs.js",
+    "src/repo.js"
   ],
   "engines": {
     "node": ">= 16.0.0",
@@ -26,7 +28,8 @@
   },
   "scripts": {
     "lint": "eslint src --ext js",
-    "print": "node -e 'async function run() { console.log(JSON.stringify(await require(\"./src/get-stats\")(), null, 2)) } run()'"
+    "contribs": "node -e \"async function run() { console.log(JSON.stringify(await require('./src/contribs')(), null, 2)) } run()\"",
+    "repo": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/repo')('$1'), null, 2)) } run()\"; }; run"
   },
   "dependencies": {
     "@octokit/graphql": "^5.0.4"
