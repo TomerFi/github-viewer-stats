@@ -11,10 +11,10 @@ module.exports = function() {
     }
   };
 
-  return getForViewer(requestParams);
+  return getContributions(requestParams);
 }
 
-async function getForViewer(requestParams) {
+async function getContributions(requestParams) {
   const viewerQuery = `#graphql
     {
       viewer{
@@ -29,6 +29,9 @@ async function getForViewer(requestParams) {
           contributionYears
         }
         gists {
+          totalCount
+        }
+        packages {
           totalCount
         }
         repositoryDiscussionComments {
@@ -51,7 +54,6 @@ async function getForViewer(requestParams) {
   }
 
   return constructReturn(viewerInfo.viewer, contributionsCollection);
-
 }
 
 async function getContributionsFrom(requestParams, from, totalContributions = {
@@ -152,8 +154,9 @@ function constructReturn(viewer, contributions) {
   let returnContributions = {...contributions}
   delete returnContributions.contributionsCollection.contributionCalendar
 
-  returnContributions.contributionsCollection.totalGistContributions = viewer.gists.totalCount;
   returnContributions.contributionsCollection.totalDiscussionContributions = viewer.repositoryDiscussionComments.totalCount;
+  returnContributions.contributionsCollection.totalGistContributions = viewer.gists.totalCount;
+  returnContributions.contributionsCollection.totalPackageContributions = viewer.packages.totalCount;
 
   return {...returnViewer, ...returnContributions}
 }
