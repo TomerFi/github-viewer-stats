@@ -2,11 +2,9 @@
 root: true
 parserOptions:
   ecmaVersion: 2022
-  sourceType: script
+  sourceType: module
 env:
   node: true
-  es6: true
-  mocha: true
 extends:
   - "eslint:recommended"
   - "plugin:editorconfig/all"
