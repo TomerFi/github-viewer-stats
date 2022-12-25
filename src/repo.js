@@ -1,4 +1,8 @@
 module.exports = function(repo) {
+  if (repo == null || '' == repo) {
+    throw TypeError('repository name required');
+  }
+
   return getRepo(require('./api').getInstance(), repo);
 }
 

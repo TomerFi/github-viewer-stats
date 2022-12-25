@@ -3,7 +3,7 @@ module.exports = function() {
 }
 
 async function getContributions(api) {
-  const viewerQuery = `#graphql
+  const query = `#graphql
     {
       viewer{
         name
@@ -29,7 +29,7 @@ async function getContributions(api) {
     }
   `;
 
-  let viewerInfo = await api(viewerQuery);
+  let viewerInfo = await api(query);
   let start = viewerInfo.viewer.createdAt;
   let contributionsCollection = await getContributionsFrom(api, start);
 
@@ -62,7 +62,7 @@ async function getContributionsFrom(api, from, totalContributions = {
 }) {
 
   const query = `#graphql
-    query($from: DateTime!){
+    query($from: DateTime!) {
       viewer{
         contributionsCollection(from: $from) {
           contributionCalendar {
