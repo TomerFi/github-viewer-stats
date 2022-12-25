@@ -1,24 +1,12 @@
-const { graphql } = require('@octokit/graphql');
-
 module.exports = function(repo) {
-  if (!('GITHUB_TOKEN' in process.env)) {
-    throw new Error('missing required environment variable GITHUB_TOKEN');
-  }
-
-  const requestParams = {
-    headers: {
-      authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-    }
-  };
-
-  return getRepo(requestParams, repo);
+  return getRepo(require('./api').getInstance(), repo);
 }
 
-async function getRepo(requestParams, repo) {
-  const repoQuery = `#graphql
-    {
+async function getRepo(api, repo) {
+  const query = `#graphql
+    query($repo: String!) {
       viewer {
-        repository(name: "${repo}") {
+        repository(name: $repo) {
           name
           collaborators {
             totalCount
@@ -45,7 +33,7 @@ async function getRepo(requestParams, repo) {
     }
   `;
 
-  let repoInfo = await graphql(repoQuery, requestParams);
+  let repoInfo = await api({query, repo});
   return constructReturn(repoInfo.viewer.repository)
 }
 

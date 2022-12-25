@@ -1,20 +1,8 @@
-const { graphql } = require('@octokit/graphql');
-
 module.exports = function() {
-  if (!('GITHUB_TOKEN' in process.env)) {
-    throw new Error('missing required environment variable GITHUB_TOKEN');
-  }
-
-  const requestParams = {
-    headers: {
-      authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-    }
-  };
-
-  return getContributions(requestParams);
+  return getContributions(require('./api').getInstance());
 }
 
-async function getContributions(requestParams) {
+async function getContributions(api) {
   const viewerQuery = `#graphql
     {
       viewer{
@@ -41,22 +29,22 @@ async function getContributions(requestParams) {
     }
   `;
 
-  let viewerInfo = await graphql(viewerQuery, requestParams);
+  let viewerInfo = await api(viewerQuery);
   let start = viewerInfo.viewer.createdAt;
-  let contributionsCollection = await getContributionsFrom(requestParams, start);
+  let contributionsCollection = await getContributionsFrom(api, start);
 
   let from = new Date(start);
   from.setFullYear(from.getFullYear() + 1);
   let now = new Date()
   while (diffYears(from, now) > 0) {
-    await getContributionsFrom(requestParams, from.toISOString(), contributionsCollection);
+    await getContributionsFrom(api, from.toISOString(), contributionsCollection);
     from.setFullYear(from.getFullYear() + 1);
   }
 
   return constructReturn(viewerInfo.viewer, contributionsCollection);
 }
 
-async function getContributionsFrom(requestParams, from, totalContributions = {
+async function getContributionsFrom(api, from, totalContributions = {
   contributionsCollection: {
     contributionCalendar: {
       totalContributions: 0
@@ -73,10 +61,10 @@ async function getContributionsFrom(requestParams, from, totalContributions = {
   }
 }) {
 
-  const contributionsQuery = `#graphql
-    {
+  const query = `#graphql
+    query($from: DateTime!){
       viewer{
-        contributionsCollection(from: "${from}") {
+        contributionsCollection(from: $from) {
           contributionCalendar {
             totalContributions
           }
@@ -94,7 +82,7 @@ async function getContributionsFrom(requestParams, from, totalContributions = {
     }
   `;
 
-  let currentYear = await graphql(contributionsQuery, requestParams);
+  let currentYear = await api({query, from});
 
   totalContributions.contributionsCollection.contributionCalendar.totalContributions +=
     currentYear.viewer.contributionsCollection.contributionCalendar.totalContributions;
