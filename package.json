@@ -19,6 +19,7 @@
   "main": "src/index.js",
   "files": [
     "!*",
+    "src/api.js",
     "src/contribs.js",
     "src/repo.js"
   ],
