@@ -1,9 +1,57 @@
 const { graphql } = require('@octokit/graphql');
 
-function diffYears(from, to) {
-  let diff =(to.getTime() - from.getTime()) / 1000;
-  diff /= (60 * 60 * 24);
-  return Math.abs(Math.round(diff/365.25));
+module.exports = function() {
+  if (!('GITHUB_TOKEN' in process.env)) {
+    throw new Error('missing required environment variable GITHUB_TOKEN');
+  }
+
+  const requestParams = {
+    headers: {
+      authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+    }
+  };
+
+  return getForViewer(requestParams);
+}
+
+async function getForViewer(requestParams) {
+  const viewerQuery = `#graphql
+    {
+      viewer{
+        name
+        login
+        createdAt
+        company
+        status {
+          message
+        }
+        contributionsCollection {
+          contributionYears
+        }
+        gists {
+          totalCount
+        }
+        repositoryDiscussionComments {
+          totalCount
+        }
+      }
+    }
+  `;
+
+  let viewerInfo = await graphql(viewerQuery, requestParams);
+  let start = viewerInfo.viewer.createdAt;
+  let contributionsCollection = await getContributionsFrom(requestParams, start);
+
+  let from = new Date(start);
+  from.setFullYear(from.getFullYear() + 1);
+  let now = new Date()
+  while (diffYears(from, now) > 0) {
+    await getContributionsFrom(requestParams, from.toISOString(), contributionsCollection);
+    from.setFullYear(from.getFullYear() + 1);
+  }
+
+  return constructReturn(viewerInfo.viewer, contributionsCollection);
+
 }
 
 async function getContributionsFrom(requestParams, from, totalContributions = {
@@ -79,43 +127,33 @@ async function getContributionsFrom(requestParams, from, totalContributions = {
   return totalContributions;
 }
 
-async function getForViewer(requestParams) {
-  const viewerQuery = `#graphql
-    {
-      viewer{
-        name
-        login
-        createdAt
-      }
-    }
-  `;
-
-  let viewerInfo = await graphql(viewerQuery, requestParams);
-  let start = viewerInfo.viewer.createdAt;
-  let contributionsCollection = await getContributionsFrom(requestParams, start);
-
-  let from = new Date(start);
-  from.setFullYear(from.getFullYear() + 1);
-  let now = new Date()
-  while (diffYears(from, now) > 0) {
-    await getContributionsFrom(requestParams, from.toISOString(), contributionsCollection);
-    from.setFullYear(from.getFullYear() + 1);
-  }
-
-  let name = viewerInfo.viewer.name !== null  ? viewerInfo.viewer.name : viewerInfo.viewer.login;
-  return {name, ...contributionsCollection}
+function diffYears(from, to) {
+  let diff =(to.getTime() - from.getTime()) / 1000;
+  diff /= (60 * 60 * 24);
+  return Math.abs(Math.round(diff/365.25));
 }
 
-module.exports = function() {
-  if (!('GITHUB_TOKEN' in process.env)) {
-    throw new Error('missing required environment variable GITHUB_TOKEN');
-  }
-
-  const requestParams = {
-    headers: {
-      authorization: `bearer ${process.env.GITHUB_TOKEN}`,
-    }
+function constructReturn(viewer, contributions) {
+  let returnViewer = {
+    name: viewer.name !== null  ? viewer.name : viewer.login
   };
 
-  return getForViewer(requestParams);
+  if (viewer.company !== null) {
+    returnViewer.company = viewer.company;
+  }
+
+  if (viewer.status !== null && viewer.status.message !== null) {
+    returnViewer.status = viewer.status.message;
+  }
+
+  returnViewer.contributingSince = viewer.contributionsCollection.contributionYears.sort((a, b) => a -b)[0];
+  returnViewer.totalContributions = contributions.contributionsCollection.contributionCalendar.totalContributions;
+
+  let returnContributions = {...contributions}
+  delete returnContributions.contributionsCollection.contributionCalendar
+
+  returnContributions.contributionsCollection.totalGistContributions = viewer.gists.totalCount;
+  returnContributions.contributionsCollection.totalDiscussionContributions = viewer.repositoryDiscussionComments.totalCount;
+
+  return {...returnViewer, ...returnContributions}
 }
