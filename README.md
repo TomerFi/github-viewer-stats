@@ -20,19 +20,20 @@ npx github-viewer-stats contribs
   "company": "Red Hat",
   "status": "pr is coming",
   "contributingSince": 2017,
-  "totalContributions": 10174,
+  "totalContributions": 10179,
   "contributionsCollection": {
-    "totalCommitContributions": 7524,
+    "totalCommitContributions": 7528,
     "totalIssueContributions": 109,
-    "totalPullRequestContributions": 372,
+    "totalPullRequestContributions": 373,
     "totalPullRequestReviewContributions": 645,
     "totalRepositoriesWithContributedCommits": 202,
     "totalRepositoriesWithContributedIssues": 51,
     "totalRepositoriesWithContributedPullRequestReviews": 39,
     "totalRepositoriesWithContributedPullRequests": 98,
     "totalRepositoryContributions": 131,
+    "totalDiscussionContributions": 80,
     "totalGistContributions": 7,
-    "totalDiscussionContributions": 80
+    "totalPackageContributions": 0
   }
 }
 ```
