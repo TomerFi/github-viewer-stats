@@ -102,7 +102,7 @@ require('github-viewer-stats').repo('aioswitcher').then(r => console.log(JSON.st
   const { contribs, repo } = require('github-viewer-stats');
 
   async function main() {
-    // collect user my statistics
+    // collect my user statistics
     let myContributions = await contribs();
     console.log(JSON.stringify(myContributions, null, 2));
 
