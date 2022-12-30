@@ -114,7 +114,7 @@ require('github-viewer-stats').repo('aioswitcher').then(r => console.log(JSON.st
     let myContributions = await contribs();
     console.log(JSON.stringify(myContributions, null, 2));
 
-    // collect my aioswitcher repository statistics
+    // collect cool-org-name repository statistics
     let myOrg = await org('cool-org-name');
     console.log(JSON.stringify(myRepo, null, 2));
 
