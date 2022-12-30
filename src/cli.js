@@ -7,6 +7,7 @@ function help() {
     available options for github-viewer-stats:
 
     contribs - prints user statistics
+    org <org-name> - prints org statistics for <org-name>
     repo <repo-name> - prints repo statistics for <repo-name>
     scopes - prints the requires scopes for GITHUB_TOKEN
     help - prints this help
@@ -59,6 +60,17 @@ if ('scopes' == args[0]) {
 if (args.length == 0 || 'contribs' == args[0]) {
   verifyToken();
   require('./contribs')()
+    .then(r => output(r))
+    .then(() => process.exit(0));
+
+} else if ('org' == args[0] || args[0].startsWith('org=')) {
+  let org = args[0].includes('=') ? args[0].split('=')[1] : args[1];
+  if (org == null || '' == org) {
+    console.error('organization name required')
+    process.exit(1);
+  }
+  verifyToken();
+  require('./org')(org)
     .then(r => output(r))
     .then(() => process.exit(0));
 
