@@ -72,7 +72,13 @@ npx github-viewer-stats repo aioswitcher
     <li>read:packages</li>
     <li>read:user</li>
     <li>read:discussion</li>
+    <li>admin:org</li>
   </ul>
+
+  <em>admin:org</em> is only required for admin level organization stats, such as 2fa and pending members.<br/>
+  If you do not require these admin properties or do not have admin permission to the organization to begin with, you can use <em>read:org</em> instead.<br/>
+  Of course if won't use this tool for retrieving organization statistics, you can omit the <em>admin</em> all together.
+
   </p>
 </details>
 
@@ -90,6 +96,8 @@ npm install --save github-viewer-stats
 ```javascript
 // print my user statistics to the console
 require('github-viewer-stats').contribs().then(r => console.log(JSON.stringify(r, null, 2)));
+// print cool-org-name organization statistics to the console
+require('github-viewer-stats').org('cool-org-name').then(r => console.log(JSON.stringify(r, null, 2)));
 // print my aioswitcher repository statistics to the console
 require('github-viewer-stats').repo('aioswitcher').then(r => console.log(JSON.stringify(r, null, 2)));
 ```
@@ -99,12 +107,16 @@ require('github-viewer-stats').repo('aioswitcher').then(r => console.log(JSON.st
   <p>
 
   ```javascript
-  const { contribs, repo } = require('github-viewer-stats');
+  const { contribs, org, repo } = require('github-viewer-stats');
 
   async function main() {
     // collect my user statistics
     let myContributions = await contribs();
     console.log(JSON.stringify(myContributions, null, 2));
+
+    // collect my aioswitcher repository statistics
+    let myOrg = await org('cool-org-name');
+    console.log(JSON.stringify(myRepo, null, 2));
 
     // collect my aioswitcher repository statistics
     let myRepo = await repo('aioswitcher');
