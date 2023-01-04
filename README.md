@@ -62,6 +62,25 @@ npx github-viewer-stats repo aioswitcher
 
 <!--END OF REPO-->
 
+```shell
+npx github-viewer-stats org my-organization
+```
+
+```json
+{
+  "name": "My Organization Name",
+  "description": "My organization description",
+  "members": 217,
+  "teams": 2,
+  "repositories": 16,
+  "pending": 0,
+  "twoFactorAuthentication": false,
+  "webCommitSignoff": false,
+  "websiteUrl": "https://my-org-site.com/"
+}
+
+```
+
 </p>
 
 <details>
