@@ -1,6 +1,6 @@
 {
   "name": "github-viewer-stats",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Small NPM package for collecting your own GitHub statistics",
   "homepage": "https://github.com/TomerFi/github-viewer-stats#readme",
   "license": "ISC",
