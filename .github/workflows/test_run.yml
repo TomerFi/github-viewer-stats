@@ -19,7 +19,7 @@ jobs:
     name: Test run
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.1
 
       - name: Install node 16
         uses: actions/setup-node@v3.6.0
@@ -67,7 +67,7 @@ jobs:
       github.event.inputs.update_readme == 'yes'
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.1
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
