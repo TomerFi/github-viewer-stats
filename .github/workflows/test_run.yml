@@ -92,7 +92,7 @@ jobs:
       - name: Check for README diff
         id: got_diff
         continue-on-error: true # exits non zero if diff found
-        run: git diff -s --exit-code README.me
+        run: git diff -s --exit-code README.md
 
       - name: Commit and push README
         if: steps.got_diff.outcome == 'failure' # failure means found diff
