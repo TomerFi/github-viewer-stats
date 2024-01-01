@@ -47,7 +47,7 @@ jobs:
           && printf "\`\`\`\n\n" >> my_repo
 
       - name: Upload statistics artifact
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4.0.0
         if: >-
           github.event_name == 'workflow_dispatch' &&
           github.event.inputs.update_readme == 'yes'
