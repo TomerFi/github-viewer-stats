@@ -1,5 +1,5 @@
-module.exports = function() {
-  return getContributions(require('./api').getInstance());
+module.exports = async function() {
+  return getContributions(await require('./api').getInstance());
 }
 
 async function getContributions(api) {
