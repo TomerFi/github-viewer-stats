@@ -1,9 +1,9 @@
-module.exports = function(org) {
+module.exports = async function(org) {
   if (org == null || '' == org) {
     throw TypeError('organization name required');
   }
 
-  return getOrg(require('./api').getInstance(), org);
+  return getOrg(await require('./api').getInstance(), org);
 }
 
 async function getOrg(api, org) {

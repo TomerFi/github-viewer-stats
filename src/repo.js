@@ -1,9 +1,9 @@
-module.exports = function(repo) {
+module.exports = async function(repo) {
   if (repo == null || '' == repo) {
     throw TypeError('repository name required');
   }
 
-  return getRepo(require('./api').getInstance(), repo);
+  return getRepo(await require('./api').getInstance(), repo);
 }
 
 async function getRepo(api, repo) {

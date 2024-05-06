@@ -1,12 +1,12 @@
-const { graphql } = require('@octokit/graphql');
-
 module.exports = function() {
-  function newApi() {
+  async function newApi() {
     if (!('GITHUB_TOKEN' in process.env)) {
       throw new Error('missing required environment variable GITHUB_TOKEN');
     }
 
-    return graphql.defaults({
+    const graphql = await import('@octokit/graphql')
+
+    return graphql.graphql.defaults({
       headers: {
         authorization: `bearer ${process.env.GITHUB_TOKEN}`,
       }
@@ -16,9 +16,9 @@ module.exports = function() {
   let api;
 
   return {
-    getInstance: function() {
+    getInstance: async function() {
       if (!api) {
-        api = newApi();
+        api = await newApi();
       }
       return api;
     }
