@@ -29,7 +29,7 @@
     "npm": ">= 9.0.0"
   },
   "scripts": {
-    "lint": "eslint src --ext js",
+    "lint": "eslint src",
     "contribs": "node -e \"async function run() { console.log(JSON.stringify(await require('./src/contribs')(), null, 2)) } run()\"",
     "repo": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/repo')('$1'), null, 2)) } run()\"; }; run",
     "org": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/org')('$1'), null, 2)) } run()\"; }; run"
@@ -38,7 +38,9 @@
     "@octokit/graphql": "^7.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.2.0",
     "eslint": "^9.1.1",
-    "eslint-plugin-editorconfig": "^4.0.2"
+    "eslint-plugin-editorconfig": "^4.0.2",
+    "globals": "^15.1.0"
   }
 }
