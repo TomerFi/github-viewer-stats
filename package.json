@@ -35,7 +35,7 @@
     "org": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/org')('$1'), null, 2)) } run()\"; }; run"
   },
   "dependencies": {
-    "@octokit/graphql": "^8.1.1"
+    "@octokit/graphql": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
