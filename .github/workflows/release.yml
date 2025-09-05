@@ -56,7 +56,7 @@ jobs:
 
       - name: Create a release name
         id: release_name
-        uses: actions/github-script@v7.0.1
+        uses: actions/github-script@v8.0.0
         with:
           script: |
             var retval = '${{ steps.bumper.outputs.next }}'
@@ -72,7 +72,7 @@ jobs:
 
       - name: Create a release
         id: gh_release
-        uses: actions/github-script@v7.0.1
+        uses: actions/github-script@v8.0.0
         with:
           github-token: ${{ secrets.RELEASE_PAT }}
           script: |
