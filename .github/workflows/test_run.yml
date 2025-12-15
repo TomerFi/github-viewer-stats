@@ -47,7 +47,7 @@ jobs:
           && printf "\`\`\`\n\n" >> my_repo
 
       - name: Upload statistics artifact
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         if: >-
           github.event_name == 'workflow_dispatch' &&
           github.event.inputs.update_readme == 'yes'
@@ -72,7 +72,7 @@ jobs:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Download statistics artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: stats-artifact
 
