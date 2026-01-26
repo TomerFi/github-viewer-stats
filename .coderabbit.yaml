@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+---
+reviews:
+  path_instructions:
+    - path: src/**/*.js
+      instructions: |
+        Review JavaScript code for:
+        - Proper async/await and Promise handling
+        - Error handling and graceful failures
+        - GitHub API usage patterns
+        - SVG generation best practices
