@@ -7,6 +7,10 @@ on:
       title:
         description: "Release title (blank for tag)"
         required: false
+      bump:
+        description: "Bump type (major/minor/patch/auto)"
+        default: "auto"
+        required: true
 
 jobs:
   release:
@@ -44,6 +48,8 @@ jobs:
       - name: Determine next SemVer
         id: bumper
         uses: tomerfi/version-bumper-action@2.0.5
+        with:
+          bump: '${{ github.event.inputs.bump }}'
 
       - name: Update package with new version
         run: npm version ${{ steps.bumper.outputs.next }} --no-git-tag-version
