@@ -1,4 +1,27 @@
-node_modules
+# Dependencies
+node_modules/
+
+# NPM
+npm-debug.log*
 github-viewer-stats-*.tgz
+
+# Test/local outputs
 my_stats
 my_repo
+my_org
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.test
