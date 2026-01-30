@@ -14,11 +14,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'src/**/*.js'
-      - 'eslint.config.mjs'
-      - 'package*.json'
-      - '.github/workflows/lint.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
