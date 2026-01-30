@@ -1,11 +1,42 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 ---
 reviews:
+  tone_instructions: "Be direct and concise. Focus on correctness of async/await patterns, error handling, and GraphQL API usage."
+
   path_instructions:
-    - path: src/**/*.js
+    - path: src/api.js
       instructions: |
-        Review JavaScript code for:
-        - Proper async/await and Promise handling
-        - Error handling and graceful failures
-        - GitHub API usage patterns
-        - SVG generation best practices
+        GraphQL client singleton. Review for:
+        - Token validation before API calls
+        - Error handling patterns
+        - Singleton pattern correctness
+
+    - path: src/cli.js
+      instructions: |
+        CLI entrypoint. Review for:
+        - Argument parsing correctness
+        - Error messaging clarity
+        - User experience
+
+    - path: src/{contribs,repo,org}.js
+      instructions: |
+        Statistics collection modules. Review for:
+        - GraphQL query correctness
+        - Data transformation accuracy
+        - Error handling for API failures
+
+    - path: .github/workflows/*.yml
+      instructions: |
+        Review workflows for:
+
+        Security:
+        - Proper secret handling via ${{ secrets.* }}
+        - SSH signing configured correctly
+
+        Efficiency:
+        - Concurrency groups prevent duplicate runs
+        - Path filters for relevant changes
+
+        Correctness:
+        - Proper trigger conditions
+        - Fetch depth appropriate for git operations

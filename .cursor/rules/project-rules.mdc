@@ -1,0 +1,62 @@
+---
+description: github-viewer-stats project conventions and development guidelines
+alwaysApply: true
+---
+
+# github-viewer-stats Project Rules
+
+## Project Overview
+
+A lightweight Node.js CLI tool and library for collecting GitHub statistics using the GraphQL API.
+
+## Coding Conventions
+
+### JavaScript Style
+- Use CommonJS modules (`module.exports`, `require`)
+- Prefer `async`/`await` over raw Promises
+- Use template literals for string interpolation
+- Follow existing indentation (2 spaces, per `.editorconfig`)
+
+### Error Handling
+- Validate `GITHUB_TOKEN` environment variable before API calls
+- Provide clear, actionable error messages
+- Handle GraphQL API errors gracefully
+
+### API Usage
+- Use `@octokit/graphql` for GitHub GraphQL API calls
+- Singleton pattern for API client (see `src/api.js`)
+- Token authentication via `GITHUB_TOKEN` environment variable
+
+## Architecture Constraints
+
+### File Organization
+- `src/index.js` - Main module exports
+- `src/api.js` - GraphQL client factory
+- `src/cli.js` - CLI entrypoint
+- `src/contribs.js` - User contribution stats
+- `src/repo.js` - Repository stats
+- `src/org.js` - Organization stats
+
+### Dependencies
+- Keep dependencies minimal
+- Only `@octokit/graphql` for runtime
+- Dev dependencies for linting only
+
+## Development Tools
+
+### Linting
+```bash
+npm run lint
+```
+
+ESLint is configured via `eslint.config.mjs` with recommended rules for Node.js/CommonJS.
+
+### Testing Locally
+Requires a `GITHUB_TOKEN` environment variable with scopes: `repo`, `read:packages`, `read:user`, `read:discussion`, `read:org` (or `admin:org` for full org stats).
+
+Test commands:
+```bash
+npm run contribs
+npm run repo <repo-name>
+npm run org <org-name>
+```
