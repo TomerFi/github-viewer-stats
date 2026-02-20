@@ -1,0 +1,23 @@
+---
+description: JavaScript coding conventions for source files
+globs: "src/**/*.js"
+alwaysApply: false
+---
+
+# Coding Conventions
+
+## JavaScript Style
+- Use CommonJS modules (`module.exports`, `require`)
+- Prefer `async`/`await` over raw Promises
+- Use template literals for string interpolation
+- 2-space indentation (per `.editorconfig`)
+
+## Error Handling
+- Validate `GITHUB_TOKEN` environment variable before API calls
+- Provide clear, actionable error messages
+- Wrap all GraphQL calls with try/catch
+
+## API Client
+- Use `require('./api')` singleton for the GraphQL client
+- Token authentication via `GITHUB_TOKEN` environment variable only
+- Never hardcode tokens or credentials

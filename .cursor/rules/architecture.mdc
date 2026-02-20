@@ -1,0 +1,18 @@
+---
+description: Architecture constraints and file organization for github-viewer-stats
+alwaysApply: false
+---
+
+# Architecture
+
+## File Organization
+- `src/index.js` — Main module exports
+- `src/api.js` — GraphQL client factory (singleton)
+- `src/cli.js` — CLI entrypoint
+- `src/contribs.js` — User contribution stats
+- `src/repo.js` — Repository stats
+- `src/org.js` — Organization stats
+
+## Dependency Policy
+- Keep runtime dependencies minimal (only `@octokit/graphql`)
+- Dev dependencies for linting only
