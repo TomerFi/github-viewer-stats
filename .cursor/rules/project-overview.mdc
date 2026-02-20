@@ -1,0 +1,14 @@
+---
+description: Project overview and tech stack context for github-viewer-stats
+alwaysApply: true
+---
+
+# github-viewer-stats
+
+Lightweight Node.js CLI tool and library for collecting GitHub statistics via the GraphQL API.
+
+- **Runtime:** Node.js >= 18, CommonJS modules
+- **API client:** `@octokit/graphql` with `GITHUB_TOKEN` env var
+- **Entry points:** `src/index.js` (library), `src/cli.js` (CLI)
+- **Linting:** ESLint via `npm run lint`
+- **Dependencies:** minimal — only `@octokit/graphql` for runtime

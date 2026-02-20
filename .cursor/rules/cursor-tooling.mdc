@@ -1,0 +1,19 @@
+---
+description: Available Cursor agents, commands, and skills for this project
+alwaysApply: true
+---
+
+# Cursor Tooling
+
+## Agents
+- **code-reviewer** — Pre-commit code review checklist
+- **docs-writer** — Documentation update assistant
+
+## Commands
+- **lint** — Run ESLint on source files
+- **test-contribs** — Test the contribs command locally
+- **test-repo** — Test the repo command locally
+- **test-org** — Test the org command locally
+
+## Skills
+- **add-stats-module** — Step-by-step guide for adding new statistics collection modules

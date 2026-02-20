@@ -1,0 +1,21 @@
+---
+description: Development tools, linting, and local testing instructions
+alwaysApply: false
+---
+
+# Development
+
+## Linting
+```bash
+npm run lint
+```
+ESLint configured via `eslint.config.mjs`.
+
+## Local Testing
+Requires `GITHUB_TOKEN` with scopes: `repo`, `read:packages`, `read:user`, `read:discussion`, `read:org` (or `admin:org` for full org stats).
+
+```bash
+npm run contribs
+npm run repo <repo-name>
+npm run org <org-name>
+```
