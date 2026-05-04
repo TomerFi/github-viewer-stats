@@ -1,6 +1,6 @@
 ---
 name: add-stats-module
-description: Guide for adding new GitHub statistics collection modules
+description: Step-by-step guide for adding new GitHub statistics collection modules to github-viewer-stats
 ---
 
 # Adding a New Statistics Module
@@ -77,9 +77,9 @@ description: Test the new module command
 
 Test the new module command:
 
-\`\`\`bash
-npm run newmodule <arg>
-\`\`\`
+```bash
+npm run newmodule -- <arg>
+```
 
 **Prerequisites:**
 - `GITHUB_TOKEN` environment variable must be set
@@ -93,15 +93,15 @@ The command will print statistics as JSON.
 Update README.md with usage example:
 
 ```markdown
-\`\`\`shell
+```shell
 npx github-viewer-stats newmodule <arg>
-\`\`\`
+```
 
-\`\`\`json
+```json
 {
   "example": "output"
 }
-\`\`\`
+```
 ```
 
 ## GraphQL Query Tips
