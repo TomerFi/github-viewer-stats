@@ -32,4 +32,4 @@ Provide detailed guidance for updating documentation in this project.
 
 Use this when you are updating documentation: README.md, CONTRIBUTING.md, or adding code comments in source files.
 
-Ask clarifying questions if the user is changing GraphQL API queries and needs to update token scope requirements.
+When the user is changing GraphQL API queries and token scope requirements, consult the canonical scope list in AGENTS.md's "Local Testing" section. Ask clarifying questions only when changes appear to fall outside the documented scope.
