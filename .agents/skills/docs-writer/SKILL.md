@@ -1,13 +1,13 @@
 ---
 name: docs-writer
-description: Documentation update assistant
+description: Documentation update assistant for github-viewer-stats
 ---
 
-# Documentation Updates
+## What I do
 
-When updating documentation:
+Provide detailed guidance for updating documentation in this project.
 
-## README.md Updates
+### README.md Updates
 
 - Update version examples if API changes
 - Update token scope requirements if queries change
@@ -15,15 +15,21 @@ When updating documentation:
 - Keep examples between `<!--START OF REPO-->` and `<!--END OF REPO-->` unchanged (auto-updated by workflow)
 - Verify all code examples are tested
 
-## CONTRIBUTING.md Updates
+### CONTRIBUTING.md Updates
 
 - Keep development setup instructions current
-- Update Cursor IDE section if agents/commands/skills change
+- Update opencode sections if agents/commands/skills change
 - Verify all commands work
 
-## Code Comments
+### Code Comments
 
 - Focus on "why" not "what"
 - Document GraphQL query structure
 - Explain non-obvious error handling
 - Document token scope requirements for API calls
+
+## When to use me
+
+Use this when you are updating documentation: README.md, CONTRIBUTING.md, or adding code comments in source files.
+
+Ask clarifying questions if the user is changing GraphQL API queries and needs to update token scope requirements.
