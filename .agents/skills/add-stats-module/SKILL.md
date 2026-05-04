@@ -78,7 +78,7 @@ description: Test the new module command
 Test the new module command:
 
 ```bash
-npm run newmodule <arg>
+npm run newmodule -- <arg>
 ```
 
 **Prerequisites:**
