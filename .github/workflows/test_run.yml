@@ -6,14 +6,14 @@ on:
     inputs:
       update_readme:
         description: "Update README?"
-        default: "yes"
-        required: false
+        default: true
+        type: boolean
   push:
     branches:
       - main
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: test_run-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,12 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     environment: test-run
     name: Test run
+    permissions:
+      contents: read # checkout
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install node 18
-        uses: actions/setup-node@v6.4.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: "18"
           cache: npm
@@ -51,10 +53,10 @@ jobs:
           && printf "\`\`\`\n\n" >> my_repo
 
       - name: Upload statistics artifact
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: >-
           github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.update_readme == 'yes'
+          github.event.inputs.update_readme == 'true'
         with:
           name: stats-artifact
           path: |
@@ -66,17 +68,19 @@ jobs:
     environment: update-docs
     name: Update README
     needs: test_run
+    permissions:
+      contents: write # commit and push to repo
     if: >-
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.update_readme == 'yes'
+        github.event_name == 'workflow_dispatch' &&
+        github.event.inputs.update_readme == 'true'
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Download statistics artifact
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: stats-artifact
 
@@ -87,11 +91,10 @@ jobs:
 
       - name: Setup SSH signing
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SIGNING_KEY }}" > ~/.ssh/signing_key
-          chmod 600 ~/.ssh/signing_key
+          echo "${{ secrets.SIGNING_KEY }}" > $RUNNER_TEMP/signing_key
+          chmod 600 $RUNNER_TEMP/signing_key
           git config gpg.format ssh
-          git config user.signingkey ~/.ssh/signing_key
+          git config user.signingkey $RUNNER_TEMP/signing_key
           git config commit.gpgsign true
 
       - name: Update user block
