@@ -48,11 +48,10 @@ jobs:
 
       - name: Setup SSH signing
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SIGNING_KEY }}" > ~/.ssh/signing_key
-          chmod 600 ~/.ssh/signing_key
+          echo "${{ secrets.SIGNING_KEY }}" > $RUNNER_TEMP/signing_key
+          chmod 600 $RUNNER_TEMP/signing_key
           git config gpg.format ssh
-          git config user.signingkey ~/.ssh/signing_key
+          git config user.signingkey $RUNNER_TEMP/signing_key
           git config commit.gpgsign true
 
       - name: Determine next SemVer
