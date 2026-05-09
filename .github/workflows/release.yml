@@ -6,11 +6,17 @@ on:
     inputs:
       title:
         description: "Release title (blank for tag)"
-        required: false
+        type: string
       bump:
         description: "Bump type (major/minor/patch/auto)"
         default: "auto"
         required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - auto
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

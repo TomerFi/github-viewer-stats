@@ -6,8 +6,8 @@ on:
     inputs:
       update_readme:
         description: "Update README?"
-        default: "yes"
-        required: false
+        default: true
+        type: boolean
   push:
     branches:
       - main
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         if: >-
           github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.update_readme == 'yes'
+          github.event.inputs.update_readme == 'true'
         with:
           name: stats-artifact
           path: |
@@ -66,9 +66,9 @@ jobs:
     environment: update-docs
     name: Update README
     needs: test_run
-    if: >-
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.update_readme == 'yes'
+      if: >-
+        github.event_name == 'workflow_dispatch' &&
+        github.event.inputs.update_readme == 'true'
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6.0.2
