@@ -101,8 +101,8 @@ jobs:
         with:
           github-token: ${{ secrets.RELEASE_PAT }}
           script: |
-            const repo_name = context.payload.repository.full_name
-            const response = await github.request('POST /repos/' + repo_name + '/releases', {
+            const response = await github.rest.repos.createRelease({
+              ...context.repo,
               tag_name: '${{ steps.bumper.outputs.next }}',
               name: '${{ steps.release_name.outputs.value }}',
               generate_release_notes: true
