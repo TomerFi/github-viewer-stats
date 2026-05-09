@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: test-run
     name: Test run
+    permissions:
+      contents: read # checkout
     steps:
       - name: Checkout sources
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -66,7 +68,9 @@ jobs:
     environment: update-docs
     name: Update README
     needs: test_run
-      if: >-
+    permissions:
+      contents: write # commit and push to repo
+    if: >-
         github.event_name == 'workflow_dispatch' &&
         github.event.inputs.update_readme == 'true'
     steps:

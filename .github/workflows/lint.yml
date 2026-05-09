@@ -19,6 +19,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.number }}
   cancel-in-progress: true
 
+permissions:
+  contents: read # checkout
+
 jobs:
   lint:
     runs-on: ubuntu-latest
