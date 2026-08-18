@@ -14,7 +14,7 @@ cd github-viewer-stats
 npm install
 ```
 
-See [AGENTS.md](AGENTS.md) for linting, testing, and Docker commands.
+See [AGENTS.md](AGENTS.md) for linting and testing commands.
 
 ## Local Checks
 
@@ -39,7 +39,7 @@ npm run lint
 To run lint-staged manually:
 
 ```bash
-npx lint-staged
+npm run lint-staged
 ```
 
 ## Commit Style

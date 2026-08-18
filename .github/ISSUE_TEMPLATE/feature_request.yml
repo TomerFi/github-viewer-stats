@@ -19,7 +19,7 @@ body:
     id: is-problem
     attributes:
       label: What problem does this solve?
-      description: If so, please provide as much information as you can.
+      description: Please provide as much information as you can.
 
   - type: textarea
     id: implementation-idea

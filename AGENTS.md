@@ -20,7 +20,7 @@ This project has an [AI policy](AI_POLICY.md). Always read it and ensure all sug
 ### Dependency Policy
 
 - Keep runtime dependencies minimal (only `@octokit/graphql`)
-- Dev dependencies for linting only
+- Dev dependencies for linting and repository workflow tooling (husky, lint-staged, aicfg)
 
 ### API Client
 
