@@ -2,6 +2,10 @@
 
 Lightweight Node.js CLI tool and library for collecting GitHub statistics via the GraphQL API.
 
+## AI Policy
+
+This project has an [AI policy](AI_POLICY.md). Always read it and ensure all suggestions, code, and contributions comply. If any behavior seems to conflict with the policy, warn the user and ask for guidance.
+
 ## Architecture
 
 ### File Organization
@@ -16,22 +20,7 @@ Lightweight Node.js CLI tool and library for collecting GitHub statistics via th
 ### Dependency Policy
 
 - Keep runtime dependencies minimal (only `@octokit/graphql`)
-- Dev dependencies for linting only
-
-## Coding Conventions
-
-### JavaScript Style
-
-- Use CommonJS modules (`module.exports`, `require`)
-- Prefer `async`/`await` over raw Promises
-- Use template literals for string interpolation
-- 2-space indentation (per `.editorconfig`)
-
-### Error Handling
-
-- Validate `GITHUB_TOKEN` environment variable before API calls
-- Provide clear, actionable error messages
-- Wrap all GraphQL calls with try/catch
+- Dev dependencies for linting and repository workflow tooling (husky, lint-staged, aicfg)
 
 ### API Client
 
@@ -39,17 +28,22 @@ Lightweight Node.js CLI tool and library for collecting GitHub statistics via th
 - Token authentication via `GITHUB_TOKEN` environment variable only
 - Never hardcode tokens or credentials
 
-## Development
+## Working Environment
 
-### Linting
+- This is a **Node.js** project. Use **`package.json`** for all dependencies and scripts.
+- This project uses [**husky**][husky] for Git hooks with [**lint-staged**][lint-staged] for file-specific checks.
+- The pre-commit hook blocks commits to `main`, verifies lock file consistency, checks assistant files are in sync via [aicfg](https://github.com/TomerFi/aicfg), and runs lint-staged on staged files.
+
+## Linting
 
 ```bash
-npm run lint
+npm run lint                              # lint (read-only, includes eslint, ec)
+npm run eslint                            # eslint src
+npm run eslint:fix                        # eslint --fix src
+npm run ec                                # editorconfig-checker
 ```
 
-ESLint configured via `eslint.config.mjs`.
-
-### Local Testing
+## Local Testing
 
 Requires `GITHUB_TOKEN` with scopes: `repo`, `read:packages`, `read:user`, `read:discussion`, `read:org` (or `admin:org` for full org stats).
 
@@ -59,3 +53,5 @@ npm run repo <repo-name>
 npm run org <org-name>
 ```
 
+[husky]: https://typicode.github.io/husky/
+[lint-staged]: https://github.com/okonet/lint-staged

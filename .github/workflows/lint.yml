@@ -30,10 +30,10 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Install node 18
+      - name: Install node 22
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "18"
+          node-version: "22"
           cache: npm
 
       - name: Install project modules
@@ -41,3 +41,9 @@ jobs:
 
       - name: Lint source files
         run: npm run lint
+
+      - name: Ensure assistant files are linked
+        uses: tomerfi/aicfg/link@7a71c5c7e0d8d9ebdd4a2e9212c9bb04a49c687f # 0.2.0
+        with:
+          source: agents
+          target: claude-code
