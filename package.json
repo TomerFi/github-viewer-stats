@@ -29,18 +29,36 @@
     "npm": ">= 9.0.0"
   },
   "scripts": {
-    "lint": "eslint src",
     "contribs": "node -e \"async function run() { console.log(JSON.stringify(await require('./src/contribs')(), null, 2)) } run()\"",
     "repo": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/repo')('$1'), null, 2)) } run()\"; }; run",
-    "org": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/org')('$1'), null, 2)) } run()\"; }; run"
+    "org": "run(){ node -e \"async function run() { console.log(JSON.stringify(await require('./src/org')('$1'), null, 2)) } run()\"; }; run",
+    "lint": "npm run eslint && npm run ec",
+    "eslint": "eslint src",
+    "eslint:fix": "eslint --fix src",
+    "ec": "ec",
+    "link-ai-files": "aicfg link agents --to claude-code",
+    "lint-staged": "lint-staged",
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@octokit/graphql": "^9.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "aicfg": "^0.2.0",
+    "editorconfig-checker": "^6.1.1",
     "eslint": "^10.0.0",
     "eslint-plugin-editorconfig": "^4.0.2",
-    "globals": "^17.0.0"
+    "globals": "^17.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix --"
+    ],
+    "*": [
+      "npm run ec --"
+    ]
   }
 }
