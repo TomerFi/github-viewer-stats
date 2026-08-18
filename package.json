@@ -25,8 +25,8 @@
     "src/repo.js"
   ],
   "engines": {
-    "node": ">= 18.0.0",
-    "npm": ">= 9.0.0"
+    "node": ">= 22.0.0",
+    "npm": ">= 10.0.0"
   },
   "scripts": {
     "contribs": "node -e \"async function run() { console.log(JSON.stringify(await require('./src/contribs')(), null, 2)) } run()\"",
