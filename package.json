@@ -51,7 +51,7 @@
     "eslint-plugin-editorconfig": "4.0.3",
     "globals": "17.12.0",
     "husky": "9.1.7",
-    "lint-staged": "17.5.0"
+    "lint-staged": "17.5.1"
   },
   "lint-staged": {
     "*.js": [
