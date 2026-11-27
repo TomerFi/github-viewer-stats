@@ -45,13 +45,13 @@
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "aicfg": "0.2.0",
+    "aicfg": "0.2.1",
     "editorconfig-checker": "7.0.0",
     "eslint": "10.15.0",
     "eslint-plugin-editorconfig": "4.0.3",
     "globals": "17.14.0",
     "husky": "9.1.7",
-    "lint-staged": "17.6.1"
+    "lint-staged": "17.6.2"
   },
   "lint-staged": {
     "*.js": [
